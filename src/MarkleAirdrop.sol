@@ -45,8 +45,17 @@ contract MarkleAirdrop {
         if (!MerkleProof.verify(markleProof, i_markleRoot, leaf)) revert MarkleAirdrop__InvalidProof();
 
         s_hasClaimed[accountThatWantsToClaim] = true;
-        
+
         emit Claim(accountThatWantsToClaim, amountToClaim);
         i_airdropToken.safeTransfer(accountThatWantsToClaim, amountToClaim);
     }
+
+
+    function getMarkleRoot() external view returns(bytes32) {
+        return i_markleRoot;
+    }
+
+    function getAirgropToken() external view returns(IERC20) {
+        return i_airdropToken;
+    } 
 }
